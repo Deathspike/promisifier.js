@@ -1,0 +1,27 @@
+{
+  "name": "promisifier.js",
+  "version": "1.0.1",
+  "description": "Converts callback-based APIs to ES6 promises with convenient chainable promises.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Deathspike/promisifier.js.git"
+  },
+  "keywords": [
+    "async",
+    "flow",
+    "co",
+    "coro",
+    "coroutine",
+    "promise"
+  ],
+  "author": "Roel van Uden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Deathspike/promisifier.js/issues"
+  },
+  "homepage": "https://github.com/Deathspike/promisifier.js"
+}
