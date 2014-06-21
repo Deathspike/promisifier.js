@@ -1,11 +1,14 @@
 // Enable restricted mode.
 'use strict';
+// Initialize the first function.
+let first;
 // Initialize the errorless function.
 let errorless;
 // Initialize the make function.
 let make;
 // Initialize the map function.
 let map;
+
 
 // ==================================================
 // Export the function.
@@ -48,6 +51,8 @@ let chainable = function (callback) {
 	let promise = new Promise(callback);
 	// Add the errorless function.
 	promise.errorless = errorless(this, promise);
+	// Add the first function.
+	promise.first = first(this, promise);
 	// Add the map function.
 	promise.map = map(this, promise);
 	// Return the promise.
@@ -69,6 +74,23 @@ errorless = function (context, promise) {
 				// Resolve the promise.
 				resolve.apply(context, Array.prototype.slice.call(arguments));
 			});
+		});
+	};
+};
+
+// ==================================================
+// Create a promise which passes the first array item.
+// --------------------------------------------------
+first = function (context, promise) {
+	// Return the encapsulation function.
+	return function () {
+		// Return the promise.
+		return chainable(function (resolve, reject) {
+			// Wait for the promise.
+			promise.then(function (value) {
+				// Resolve the promise.
+				resolve(Array.isArray(value) ? value[0] : value);			
+			}, reject);
 		});
 	};
 };

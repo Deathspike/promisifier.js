@@ -35,6 +35,15 @@ A generator capable of pumping promises, such as [co](https://github.com/visionm
 	fs.exists('someKindOfMonster.txt').errorless().then(function (result) {
 		console.log('exists: ' + result[0]);
 	});
+
+### First Chainable
+
+	var promisifier = require('promisifier.js');
+	var request = promisifier(require('request'));
+
+	request('http://www.google.com/').first().then(function (response) {
+		console.log(response.statusCode);
+	});
 	
 ### Map Chainable
 
@@ -44,7 +53,7 @@ A generator capable of pumping promises, such as [co](https://github.com/visionm
 	request('http://www.google.com/').map('response', 'body').then(function (result) {
 		console.log(result.response.statusCode);
 	});
-	
+
 ### Yieldable
 
 	var co = require('co');
