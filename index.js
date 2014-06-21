@@ -10,9 +10,9 @@ let map;
 // ==================================================
 // Export the function.
 // --------------------------------------------------
-module.exports = function (object) {
+module.exports = function (object, skipProperties) {
 	// Initialize the promise factory.
-	let promiseFactory = typeof object !== 'function' ? {} : function () {
+	let factory = typeof object !== 'function' ? {} : function () {
 		// Initialize the promise.
 		let promise = make(this, Array.prototype.slice.call(arguments), object);
 		// Add the errorless function.
@@ -22,16 +22,22 @@ module.exports = function (object) {
 		// Return the promise.
 		return promise;
 	};
-	// Iterate through each key.
-	for (let key in object) {
-		// Check if the key has not been inherited.
-		if (object.hasOwnProperty(key) && !/_$/.test(key)) {
-			// Add the encapsulation.
-			promiseFactory[key] = module.exports(object[key]);
+	// Check if the properties are not skipped.
+	if (!skipProperties) {
+		// Iterate through each key.
+		for (let key in object) {
+			// Check if the key has not been inherited.
+			if (typeof object[key] === 'function') {
+				// Add the bound encapsulation.
+				factory[key] = module.exports(object[key], true).bind(object);
+			} else {
+				// Add the value.
+				factory[key] = object[key];
+			}
 		}
 	}
 	// Return the promise factory.
-	return promiseFactory;
+	return factory;
 };
 
 // ==================================================

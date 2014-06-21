@@ -1,6 +1,6 @@
 {
   "name": "promisifier.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Converts callback-based APIs to ES6 promises with convenient chainable promises.",
   "main": "index.js",
   "scripts": {
